@@ -1,0 +1,599 @@
+<!doctype html>
+<html lang="no">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>SoMe Ad-tekstguide · Morgenstern</title>
+<style>
+:root{
+  --bg:#F4F1EC;--ink:#15130F;--muted:#6B6459;--line:#E4DED3;--card:#FBF8F3;
+  --accent:#FF5B2E;--ok:#1F7A4C;--warn:#B8561E;--err:#C0392B;
+  --tc:#fff;--ts:0 1px 3px rgba(0,0,0,.6);
+  --clay:30px 40px 60px rgba(20,18,14,.12),-10px -10px 30px rgba(255,255,255,.8),inset 0 -6px 12px rgba(0,0,0,.06);
+}
+body.dark-ui{--tc:#0a0a0a;--ts:0 1px 2px rgba(255,255,255,.5)}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Inter","Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1720px;margin:0 auto;padding:48px 32px 120px}
+header{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;border-bottom:1px solid var(--line);padding-bottom:28px;margin-bottom:32px}
+h1{font-family:"Fraunces","Playfair Display",Georgia,serif;font-weight:500;font-size:52px;letter-spacing:-.02em;line-height:1;margin:0 0 8px}
+h1 em{font-style:italic;color:var(--accent)}
+.sub{color:var(--muted);max-width:520px;font-size:15px;line-height:1.5;margin:0}
+.hdr-r{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-align:right}
+.hdr-r b{color:var(--ink);font-weight:600}
+
+.ctrls{display:flex;gap:10px;align-items:center;margin-bottom:10px;flex-wrap:wrap}
+.chip{border:1px solid var(--line);background:var(--card);padding:7px 13px;border-radius:999px;font-size:13px;cursor:pointer;user-select:none;transition:.15s}
+.chip:hover{border-color:var(--ink)}.chip.on{background:var(--ink);color:var(--card);border-color:var(--ink)}
+.bx{display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line);padding:5px 8px 5px 13px;border-radius:999px}
+.bx label{font-size:11px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
+.bx input{border:none;background:transparent;font:600 14px "Inter",sans-serif;color:var(--ink);outline:none;width:130px}
+.tcg{display:flex;gap:4px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px}
+.tcg button{border:none;background:transparent;padding:5px 12px;border-radius:999px;font-size:12px;cursor:pointer;color:var(--muted)}
+.tcg button.on{background:var(--ink);color:var(--card)}
+.note{font-size:12px;color:var(--muted);margin-bottom:28px}
+
+.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:28px;align-items:start}
+@media(max-width:1500px){.grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:960px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.grid{grid-template-columns:1fr}}
+
+.plat{display:flex;flex-direction:column;gap:16px}
+.ph{display:flex;justify-content:space-between;align-items:baseline}
+.pn{font-weight:600;font-size:17px;letter-spacing:-.01em}
+.pt{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+
+/* Clay phone */
+.phone{position:relative;width:100%;aspect-ratio:9/19.5;background:linear-gradient(160deg,#ECE6DA,#D9D1C1);border-radius:42px;padding:9px;box-shadow:var(--clay)}
+.phone.feed-phone{aspect-ratio:9/19.5}
+.scr{position:relative;width:100%;height:100%;border-radius:34px;overflow:hidden;background:#111;isolation:isolate}
+.isl{position:absolute;top:9px;left:50%;transform:translateX(-50%);width:34%;height:20px;background:#0a0a0a;border-radius:18px;z-index:30}
+.sts{position:absolute;top:7px;left:20px;right:20px;display:flex;justify-content:space-between;color:#fff;font-size:10px;font-weight:600;z-index:29;mix-blend-mode:difference;letter-spacing:.02em}
+.sts .r{display:flex;gap:5px;align-items:center;opacity:.95}
+
+/* Safe zone */
+.sz{position:absolute;inset:0;pointer-events:none;z-index:26;display:none}
+.sz.on{display:block}
+.sz .zt,.sz .zb,.sz .zr{position:absolute;background:rgba(255,91,46,.16);border:1px dashed rgba(255,91,46,.75)}
+.sz .zt{top:0;left:0;right:0;height:var(--zt,10%)}
+.sz .zb{bottom:0;left:0;right:0;height:var(--zb,20%)}
+.sz .zr{top:var(--zt,10%);bottom:var(--zb,20%);right:0;width:var(--zr,0%)}
+.sz .lbl{position:absolute;left:7px;bottom:calc(var(--zb,20%) + 3px);color:#FF5B2E;font-size:8px;letter-spacing:.1em;text-transform:uppercase;font-weight:700}
+
+/* BG */
+.bg{position:absolute;inset:0;z-index:0;background-size:cover;background-position:center}
+.bg.tt{background:linear-gradient(180deg,#2a2d36,#0b0d12)}
+.bg.ig{background:linear-gradient(180deg,#3a2330,#0c0609)}
+.bg.sn{background:linear-gradient(135deg,#5b4636,#2b2219)}
+.bg.ms{background:linear-gradient(180deg,#1a2a44,#07101c)}
+.bg::after{content:"";position:absolute;inset:0;background:radial-gradient(600px 300px at 30% 20%,rgba(255,255,255,.05),transparent 60%),radial-gradient(400px 400px at 80% 80%,rgba(0,0,0,.2),transparent 60%);pointer-events:none}
+.bg.has-img::after{display:none}
+
+/* Shared */
+.cap{position:absolute;left:12px;right:60px;z-index:20;color:var(--tc);font-size:12px;line-height:1.35;text-shadow:var(--ts);word-wrap:break-word;white-space:pre-wrap}
+.usr{position:absolute;left:12px;right:60px;z-index:20;color:var(--tc);font-weight:700;font-size:13px;text-shadow:var(--ts)}
+.av{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#FF5B2E,#ffb37a);border:2px solid #fff;display:grid;place-items:center;color:#fff;font-weight:700;font-size:13px;flex:none}
+.i{width:24px;height:24px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.i.lg{width:28px;height:28px}.i.f{fill:#fff;stroke:none}
+
+/* ── TikTok Ad ── */
+.tt-tabs{position:absolute;top:44px;left:0;right:0;display:flex;justify-content:center;gap:20px;color:rgba(255,255,255,.5);font-size:13px;font-weight:600;z-index:20;text-shadow:0 1px 2px rgba(0,0,0,.5)}
+.tt-tabs .a{color:#fff;position:relative}.tt-tabs .a::after{content:"";position:absolute;left:20%;right:20%;bottom:-5px;height:2px;background:#fff;border-radius:2px}
+.tt-sb{position:absolute;right:7px;bottom:120px;display:flex;flex-direction:column;gap:12px;align-items:center;z-index:20;color:#fff;font-size:10px;font-weight:700;text-shadow:0 1px 2px #000}
+.tt-sb .it{display:flex;flex-direction:column;align-items:center;gap:2px}
+.tt-sb .ic{width:32px;height:32px;display:grid;place-items:center;filter:drop-shadow(0 1px 2px rgba(0,0,0,.5))}
+.tt-cta{
+  position:absolute;left:12px;right:60px;bottom:22px;z-index:22;
+  background:var(--accent);color:#fff;font-weight:700;font-size:11px;text-align:center;
+  padding:7px 14px;border-radius:4px;text-shadow:none;
+}
+.tt-sponsored{position:absolute;left:12px;bottom:48px;z-index:20;color:rgba(255,255,255,.7);font-size:9px;font-weight:500}
+.tt-music{position:absolute;left:12px;right:60px;bottom:60px;z-index:20;color:var(--tc);font-size:10px;display:flex;align-items:center;gap:5px;text-shadow:var(--ts)}
+
+/* ── Instagram Reels Ad ── */
+.ig-bk{position:absolute;top:46px;left:13px;color:#fff;z-index:20;filter:drop-shadow(0 1px 2px rgba(0,0,0,.5))}
+.ig-sb{position:absolute;right:7px;bottom:120px;display:flex;flex-direction:column;gap:18px;align-items:center;z-index:20;color:#fff;font-size:10px;font-weight:700;text-shadow:0 1px 2px rgba(0,0,0,.5);filter:drop-shadow(0 1px 2px rgba(0,0,0,.4))}
+.ig-sb .it{display:flex;flex-direction:column;align-items:center;gap:2px}
+.ig-sb .ic{width:28px;height:28px;display:grid;place-items:center}
+.ig-nfo{position:absolute;left:0;right:52px;bottom:42px;z-index:22;padding:0 12px;color:var(--tc);text-shadow:var(--ts)}
+.ig-nfo .pr{display:flex;align-items:center;gap:7px;margin-bottom:3px}
+.ig-nfo .hn{font-weight:700;font-size:12px;flex:1}
+.ig-nfo .dt{opacity:.85;font-size:15px;letter-spacing:1px;font-weight:700}
+.ig-nfo .cr{display:flex;justify-content:space-between;align-items:flex-start;gap:6px}
+.ig-nfo .ct{font-size:11px;line-height:1.35;flex:1;word-break:break-word;white-space:pre-wrap}
+.ig-nfo .sp{font-size:11px;font-weight:700;opacity:.9;white-space:nowrap}
+.ig-cb{position:absolute;left:0;right:0;bottom:0;height:42px;background:rgba(0,0,0,.7);backdrop-filter:blur(12px);z-index:24;display:flex;align-items:center;padding:0 12px;color:rgba(255,255,255,.5);font-size:12px;gap:8px}
+.ig-cb .ca{width:22px;height:22px;border-radius:50%;background:#555;flex:none}
+
+/* ── Snap Ad ── */
+.sa-pg{position:absolute;top:36px;left:10px;right:10px;height:2px;z-index:21;background:rgba(255,255,255,.3);border-radius:2px;overflow:hidden}
+.sa-pg::before{content:"";display:block;width:18%;height:100%;background:#fff;border-radius:2px}
+.sa-top{position:absolute;top:44px;left:10px;right:10px;display:flex;justify-content:space-between;align-items:center;gap:6px;z-index:22;color:var(--tc);filter:drop-shadow(0 1px 2px rgba(0,0,0,.4));text-shadow:var(--ts)}
+.sa-top .brow{display:flex;align-items:center;gap:8px;flex:1;min-width:0}
+.sa-top .bl{width:30px;height:30px;border-radius:50%;background:#F5A623;display:grid;place-items:center;color:#fff;font-weight:800;font-size:11px;background-size:cover;background-position:center;flex:none}
+.sa-top .bm{display:flex;flex-direction:column;line-height:1.1;min-width:0}
+.sa-top .b1{font-size:12px;font-weight:700;display:flex;align-items:center;gap:3px}
+.sa-top .b1 .an{font-weight:500;opacity:.85}
+.sa-top .bt{font-size:10px;opacity:.9;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sa-top .kb{font-size:16px;color:var(--tc);letter-spacing:1px}
+.sa-card{position:absolute;left:8px;right:8px;bottom:calc(9% + 4px);z-index:22;display:flex;align-items:center;gap:6px}
+.sa-card .cb{flex:1;display:flex;align-items:center;gap:8px;background:#fff;border-radius:10px;padding:8px 10px;color:#111;min-width:0;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.sa-card .lb{width:46px;height:46px;border-radius:8px;background:#F5A623;display:grid;place-items:center;color:#fff;font-weight:800;font-size:16px;flex:none;background-size:cover;background-position:center;overflow:hidden}
+.sa-card .ct{display:flex;flex-direction:column;line-height:1.2;min-width:0;flex:1}
+.sa-card .cn{font-weight:700;font-size:13px;color:#111;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sa-card .cs{font-size:11px;color:#555;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sa-card .cu{font-size:10px;color:#888;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sa-card .ca svg{stroke:#333}
+.sa-card .ht{width:42px;height:42px;border-radius:50%;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.12);display:grid;place-items:center;flex:none}
+.sa-card .ht svg path{fill:#111}
+.sa-bar{position:absolute;left:0;right:0;bottom:0;height:9%;background:#000;z-index:24;display:flex;align-items:center;gap:7px;padding:0 12px}
+.sa-bar .cp{flex:1;height:34px;border:1.5px solid rgba(255,255,255,.5);border-radius:999px;display:flex;align-items:center;justify-content:center;gap:5px;color:#fff;font-weight:600;font-size:13px}
+.sa-bar .pl{width:34px;height:34px;border:1.5px solid rgba(255,255,255,.5);border-radius:50%;display:grid;place-items:center;flex:none;color:#fff}
+
+/* ── Meta Feed Video (4:5) ── */
+.mf-scroll{position:absolute;inset:0;z-index:1;background:#fff;overflow:hidden}
+.mf-head{padding:6px 10px;display:flex;align-items:center;gap:8px;background:#fff;border-bottom:1px solid #eee}
+.mf-head .av{width:28px;height:28px;font-size:11px;border:1.5px solid #ddd}
+.mf-head .nm{font-weight:700;font-size:12px;color:#111;flex:1}
+.mf-head .sp{font-size:10px;color:#666;margin-left:2px}
+.mf-head .dt{font-size:16px;color:#aaa;letter-spacing:1px}
+.mf-txt{padding:6px 10px 6px;font-size:11px;line-height:1.4;color:#111;white-space:pre-wrap;word-break:break-word}
+.mf-img{position:relative;width:100%;aspect-ratio:4/5;background:#222;overflow:hidden;background-size:cover;background-position:center}
+.mf-foot{padding:6px 10px 4px;background:#fff}
+.mf-foot .hl{font-weight:700;font-size:12px;color:#111;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mf-foot .ds{font-size:11px;color:#666;line-height:1.3;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mf-cta{display:flex;flex:none}
+.mf-cta button{background:#1877F2;color:#fff;border:none;font-weight:700;font-size:10px;padding:6px 12px;border-radius:4px;cursor:default;white-space:nowrap}
+.mf-react{display:flex;justify-content:space-around;padding:7px 10px;color:#666;font-size:10px;font-weight:600;border-top:1px solid #eee;margin-top:4px}
+/* safe zone overlay for feed */
+.mf-sz{position:absolute;top:0;left:0;right:0;height:100%;pointer-events:none;z-index:26;display:none}
+.mf-sz.on{display:block}
+.mf-sz .zone{position:absolute;left:0;right:0;background:rgba(255,91,46,.16);border:1px dashed rgba(255,91,46,.75)}
+.mf-sz .zone.t{top:0;height:var(--zt)}
+.mf-sz .zone.b{bottom:0;height:var(--zb)}
+.mf-sz .lbl{position:absolute;left:7px;top:50%;transform:translateY(-50%);color:#FF5B2E;font-size:8px;letter-spacing:.1em;text-transform:uppercase;font-weight:700}
+
+/* ── Meta Story ── */
+.ms-top{position:absolute;top:44px;left:10px;right:10px;display:flex;align-items:center;gap:8px;z-index:22;color:var(--tc);text-shadow:var(--ts);filter:drop-shadow(0 1px 2px rgba(0,0,0,.4))}
+.ms-top .nm{font-weight:700;font-size:12px;flex:1}
+.ms-top .sp{font-size:10px;opacity:.8}
+.ms-cta{
+  position:absolute;left:12px;right:12px;bottom:24px;z-index:22;
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+}
+.ms-cta .arrow{animation:bob 1.4s ease-in-out infinite;color:#fff;opacity:.8}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+.ms-cta .btn{background:#fff;color:#111;font-weight:700;font-size:13px;padding:9px 22px;border-radius:999px;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.ms-hl{
+  position:absolute;left:14px;right:14px;top:20%;z-index:22;text-align:center;
+  color:var(--tc);font-size:18px;font-weight:800;line-height:1.2;text-shadow:var(--ts);
+  word-wrap:break-word;white-space:pre-wrap;
+}
+.ms-cap{
+  position:absolute;left:14px;right:14px;top:50%;transform:translateY(-50%);z-index:22;text-align:center;
+  color:var(--tc);font-size:13px;font-weight:500;line-height:1.35;text-shadow:var(--ts);
+  word-wrap:break-word;white-space:pre-wrap;
+}
+
+/* Panel */
+.pnl{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
+.pnl label{display:block;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;font-weight:600}
+.pnl textarea,.pnl input[type=text]{
+  width:100%;border:1px solid var(--line);border-radius:8px;
+  padding:8px 10px;font:13px/1.4 "Inter",sans-serif;background:#fff;color:var(--ink);outline:none;transition:.15s;
+}
+.pnl textarea{min-height:72px;resize:vertical}
+.pnl input[type=text]:focus,.pnl textarea:focus{border-color:var(--ink)}
+.pnl select{width:100%;padding:7px 9px;border:1px solid var(--line);border-radius:8px;font-size:12px;background:#fff}
+.mt{display:flex;justify-content:space-between;align-items:center;margin-top:6px;font-size:11px;color:var(--muted)}
+.mt .c{font-variant-numeric:tabular-nums}.mt .c.w{color:var(--warn);font-weight:600}.mt .c.e{color:var(--err);font-weight:700}
+.br{height:3px;background:var(--line);border-radius:2px;margin-top:6px;overflow:hidden}
+.br>div{height:100%;background:var(--ok);transition:width .2s,background .2s}
+.rl{font-size:11px;color:var(--muted);margin-top:8px;line-height:1.5}.rl b{color:var(--ink)}
+.ur{display:flex;gap:6px;margin-top:8px;align-items:center}
+.ur .fk{flex:1;font-size:11px;color:var(--muted);border:1px dashed var(--line);border-radius:6px;padding:6px 8px;text-align:center;cursor:pointer;transition:.15s}
+.ur .fk:hover{border-color:var(--ink);color:var(--ink)}
+.ur button{border:1px solid var(--line);background:#fff;border-radius:6px;padding:6px 8px;font-size:11px;cursor:pointer}
+.ur input[type=file]{display:none}
+.sp8{margin-top:12px}
+footer{margin-top:64px;padding-top:20px;border-top:1px solid var(--line);display:flex;justify-content:space-between;font-size:12px;color:var(--muted);letter-spacing:.05em}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div>
+    <h1>Ad-tekst i <em>sosiale medier</em></h1>
+    <p class="sub">Visuell QA-guide for annonsekreativ. Last opp kampanjebilde, skriv teksten, og se hvordan den fremstår i hvert annonseformat med safe zones og tegngrenser.</p>
+  </div>
+  <div class="hdr-r">Morgenstern<br><b>Intern guide · v2.0</b></div>
+</header>
+
+<div class="ctrls">
+  <div class="bx"><label>Brand</label><input id="brandName" value="BrandName" maxlength="30"/></div>
+  <div class="tcg"><button id="tcW" class="on">Hvit tekst</button><button id="tcB">Sort tekst</button></div>
+  <div class="chip" id="tgSafe">Safe zones</div>
+  <div class="chip" id="tgUI">Skjul UI</div>
+  <div class="chip" id="tgSync">Synk tekst</div>
+  <div class="chip" id="tgSyncImg">Synk bilde</div>
+  <div style="flex:1"></div>
+  <label class="chip" style="cursor:pointer">Bilde til alle<input type="file" accept="image/*" id="upAll" hidden/></label>
+  <button id="exportBtn" style="background:#2d9a4e;color:#fff;border:none;border-radius:8px;padding:8px 18px;font-size:13px;font-weight:600;cursor:pointer;letter-spacing:.02em;white-space:nowrap">↓ Eksporter tekst</button>
+</div>
+<div class="note">Specs basert på offisielle retningslinjer per april 2026. Anbefalt format: 1080×1920 (9:16) / 1080×1350 (4:5 for Meta Feed).</div>
+
+<div class="grid">
+
+<!-- ════ TIKTOK AD ════ -->
+<div class="plat" data-p="tt">
+  <div class="ph"><span class="pn">TikTok</span><span class="pt">In-Feed Ad · 9:16</span></div>
+  <div class="phone"><div class="scr">
+    <div class="bg tt" data-bg="tt"></div>
+    <div class="isl"></div>
+    <div class="sts"><span>9:41</span><span class="r">5G ▫ 87%</span></div>
+    <div class="tt-tabs" data-ui><span>Utforsk</span><span>Følger</span><span class="a">For deg</span></div>
+    <!-- Safe: top 8% (~150px), right 13% (~140px), bottom 25% (~484px, CTA+caption+sponsored) -->
+    <div class="sz" data-zone style="--zt:8%;--zb:25%;--zr:13%"><div class="zt"></div><div class="zb"></div><div class="zr"></div><span class="lbl">safe zone</span></div>
+    <div class="tt-sb" data-ui>
+      <div class="av" data-avatar style="width:30px;height:30px;font-size:11px">M</div>
+      <div class="it"><div class="ic"><svg class="i lg" viewBox="0 0 24 24"><path d="M12 21s-7-4.5-9-9.5C1.5 7 5 4 8 5c2 .7 3 2 4 3 1-1 2-2.3 4-3 3-1 6.5 2 5 6.5-2 5-9 9.5-9 9.5z" fill="#fff"/></svg></div><span>124k</span></div>
+      <div class="it"><div class="ic"><svg class="i lg" viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-8 8H7l-4 3V12a8 8 0 0 1 8-8h2a8 8 0 0 1 8 8z" fill="#fff"/></svg></div><span>2 341</span></div>
+      <div class="it"><div class="ic"><svg class="i lg" viewBox="0 0 24 24"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7"/><path d="M12 3v13"/><path d="m7 8 5-5 5 5"/></svg></div><span>Del</span></div>
+    </div>
+    <!-- Bottom stack: CTA → Sponsored → Music → Caption → Username -->
+    <div class="usr" data-ui style="bottom:106px">@<span data-brand>BrandName</span>_no</div>
+    <div class="cap" data-target="tt" style="bottom:80px;font-family:'SF Pro Text',-apple-system,sans-serif">Skriv heading…</div>
+    <div class="tt-sponsored" data-ui>Sponset</div>
+    <div class="tt-cta" data-ui>Les mer</div>
+  </div></div>
+  <div class="pnl">
+    <label>Description</label>
+    <textarea data-input="tt" maxlength="100" placeholder="Maks 100 tegn. 4 linjer vises.">Skriv description her…</textarea>
+    <div class="mt"><span class="c" data-count="tt">0 / 100</span><span>maks 100</span></div>
+    <div class="br"><div data-fill="tt"></div></div>
+    <div class="rl"><b>TikTok Ad:</b> 1080×1920. Maks 100 tegn heading, 4 linjer før «mer». CTA-knapp nederst. Safe zone: topp 150px, bunn 484px, høyre 140px.</div>
+    <div class="ur"><label class="fk">Bakgrunn 1080×1920<input type="file" accept="image/*" data-upload="tt"/></label><button data-clear="tt">Fjern</button></div>
+  </div>
+</div>
+
+<!-- ════ INSTAGRAM REELS AD ════ -->
+<div class="plat" data-p="ig">
+  <div class="ph"><span class="pn">Instagram</span><span class="pt">Reels Ad · 9:16</span></div>
+  <div class="phone"><div class="scr">
+    <div class="bg ig" data-bg="ig"></div>
+    <div class="isl"></div>
+    <div class="sts"><span>9:41</span><span class="r">5G ▫ 87%</span></div>
+    <div class="ig-bk" data-ui><svg class="i" viewBox="0 0 24 24"><path d="m15 5-7 7 7 7"/></svg></div>
+    <!-- Safe: top 8%, right 13%, bottom 15% -->
+    <div class="sz" data-zone style="--zt:8%;--zb:15%;--zr:13%"><div class="zt"></div><div class="zb"></div><div class="zr"></div><span class="lbl">safe zone</span></div>
+    <div class="ig-sb" data-ui>
+      <div class="it"><div class="ic"><svg class="i lg" viewBox="0 0 24 24"><path d="M12 21s-7-4.5-9-9.5C1.5 7 5 4 8 5c2 .7 3 2 4 3 1-1 2-2.3 4-3 3-1 6.5 2 5 6.5-2 5-9 9.5-9 9.5z"/></svg></div><span>89,2k</span></div>
+      <div class="it"><div class="ic"><svg class="i lg" viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-8 8H7l-4 3V12a8 8 0 0 1 8-8h2a8 8 0 0 1 8 8z"/></svg></div><span>1 204</span></div>
+      <div class="it"><div class="ic"><svg class="i lg" viewBox="0 0 24 24"><path d="M3 11 22 2l-9 19-2-8-8-2z"/></svg></div><span>3</span></div>
+    </div>
+    <div class="ig-nfo" data-ui>
+      <div class="pr">
+        <div class="av" data-avatar style="width:24px;height:24px;font-size:10px;border:1.5px solid #fff">M</div>
+        <span class="hn"><span data-brand>BrandName</span>.no</span>
+        <span class="dt">···</span>
+      </div>
+      <div class="cr">
+        <div class="ct" data-target="ig">Skriv caption…</div>
+        <span class="sp">Sponset</span>
+      </div>
+    </div>
+    <div class="ig-cb" data-ui><div class="ca"></div><span>Legg til kommentar ...</span></div>
+  </div></div>
+  <div class="pnl">
+    <label>Caption</label>
+    <textarea data-input="ig" maxlength="2200" placeholder="Første 125 tegn vises.">Skriv caption her…</textarea>
+    <div class="mt"><span class="c" data-count="ig">0 / 125</span><span>maks 2 200</span></div>
+    <div class="br"><div data-fill="ig"></div></div>
+    <div class="rl"><b>IG Reels Ad:</b> 1080×1920. 125 tegn før trunkering. Hashtags i kommentar. Safe zone: topp 8%, bunn 15%, høyre 13%.</div>
+    <div class="ur"><label class="fk">Bakgrunn 1080×1920<input type="file" accept="image/*" data-upload="ig"/></label><button data-clear="ig">Fjern</button></div>
+  </div>
+</div>
+
+<!-- ════ SNAP AD ════ -->
+<div class="plat" data-p="sn">
+  <div class="ph"><span class="pn">Snap Ad</span><span class="pt">Single image/video · 9:16</span></div>
+  <div class="phone"><div class="scr">
+    <div class="bg sn" data-bg="sn"></div>
+    <div class="isl"></div>
+    <div class="sts"><span>9:41</span><span class="r">5G ▫ 87%</span></div>
+    <div class="sa-pg" data-ui></div>
+    <div class="sa-top" data-ui>
+      <div class="brow"><div class="bl" data-logo data-avatar>B</div><div class="bm"><div class="b1"><span data-brand>BrandName</span><span class="an">· Annonse</span></div><div class="bt" data-target="sn">Headline her</div></div></div>
+      <span class="kb">⋮</span>
+    </div>
+    <!-- Safe: top 8% (~150px), bottom 8% (~150px), sides 6% (~65px) per Snap spec -->
+    <div class="sz" data-zone style="--zt:8%;--zb:8%;--zr:0%"><div class="zt"></div><div class="zb"></div><span class="lbl">safe zone</span></div>
+    <div class="sa-card" data-ui>
+      <div class="cb">
+        <div class="lb" data-logo data-avatar>B</div>
+        <div class="ct"><div class="cs" data-brand>BrandName</div><div class="cu" data-tagline>Tagline her</div></div>
+        <div class="ca"><svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><path d="m9 6 6 6-6 6"/></svg></div>
+      </div>
+      <div class="ht"><svg viewBox="0 0 24 24" style="width:18px;height:18px"><path d="M12 21s-7-4.5-9-9.5C1.5 7 5 4 8 5c2 .7 3 2 4 3 1-1 2-2.3 4-3 3-1 6.5 2 5 6.5-2 5-9 9.5-9 9.5z" fill="#111"/></svg></div>
+    </div>
+    <div class="sa-bar" data-ui>
+      <div class="cp"><span>Les mer</span><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px"><path d="M7 17 17 7M9 7h8v8"/></svg></div>
+      <div class="pl"><svg viewBox="0 0 24 24" fill="#fff" style="width:13px;height:13px"><path d="M8 5v14l11-7z"/></svg></div>
+    </div>
+  </div></div>
+  <div class="pnl">
+    <label>Headline</label>
+    <input type="text" data-input="sn" maxlength="34" placeholder="Maks 34 tegn" value="Headline her"/>
+    <div class="mt"><span class="c" data-count="sn">0 / 34</span><span>maks 34</span></div>
+    <div class="br"><div data-fill="sn"></div></div>
+    <label class="sp8">URL</label>
+    <input type="text" data-url-input value="brandname.no" maxlength="40" />
+    <label class="sp8">Tagline (header + kort)</label>
+    <input type="text" data-tagline-input value="Tagline her" maxlength="40" />
+    <div class="ur"><label class="fk">Logo (kvadrat)<input type="file" accept="image/*" data-logo-upload/></label><button data-logo-clear>Fjern</button></div>
+    <div class="rl"><b>Snap Ad:</b> 1080×1920. Heading maks 34 tegn — vises i attachment-kortet. Safe zone: 150px topp + bunn, 6% sider.</div>
+    <div class="ur"><label class="fk">Bakgrunn 1080×1920<input type="file" accept="image/*" data-upload="sn"/></label><button data-clear="sn">Fjern</button></div>
+  </div>
+</div>
+
+<!-- ════ META FEED VIDEO ════ -->
+<div class="plat" data-p="mf">
+  <div class="ph"><span class="pn">Meta Feed</span><span class="pt">Video Ad · 4:5</span></div>
+  <div class="phone feed-phone"><div class="scr">
+    <div class="isl"></div>
+    <div class="sts"><span>9:41</span><span class="r">5G ▫ 87%</span></div>
+    <!-- Facebook chrome -->
+    <div class="mf-scroll" data-ui-mf>
+      <!-- FB top nav bar -->
+      <div style="height:36px;background:#fff;display:flex;align-items:center;padding:0 10px;gap:6px;border-bottom:1px solid #eee">
+        <svg viewBox="0 0 24 24" style="width:22px;height:22px;fill:#1877F2"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.99 3.657 9.128 8.438 9.879V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.989C18.343 21.129 22 16.99 22 12c0-5.523-4.477-10-10-10z"/></svg>
+        <div style="flex:1"></div>
+        <div style="width:26px;height:26px;border-radius:50%;background:#f0f0f0;display:grid;place-items:center">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><path d="M12 5v14M5 12h14"/></svg>
+        </div>
+        <div style="width:26px;height:26px;border-radius:50%;background:#f0f0f0;display:grid;place-items:center">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><circle cx="11" cy="11" r="6"/><path d="m17 17-2-2"/></svg>
+        </div>
+        <div style="width:26px;height:26px;border-radius:50%;background:#f0f0f0;display:grid;place-items:center">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><path d="M3 11 22 2l-9 19-2-8-8-2z"/></svg>
+        </div>
+      </div>
+      <!-- Post header -->
+      <div class="mf-head">
+        <div class="av" data-avatar style="width:28px;height:28px;font-size:11px;border:1.5px solid #ddd">B</div>
+        <div style="flex:1;min-width:0">
+          <div style="display:flex;align-items:center;gap:3px">
+            <span class="nm" data-brand>BrandName</span>
+            <svg viewBox="0 0 16 16" fill="#1877F2" style="width:12px;height:12px"><path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zm3.65 5.35a.9.9 0 0 0-1.3 0L7.5 8.2 5.65 6.35a.9.9 0 1 0-1.3 1.3l2.5 2.5a.9.9 0 0 0 1.3 0l3.5-3.5a.9.9 0 0 0 0-1.3z"/></svg>
+          </div>
+          <div style="font-size:10px;color:#666;display:flex;align-items:center;gap:3px">Sponset · <svg viewBox="0 0 16 16" fill="#999" style="width:10px;height:10px"><circle cx="8" cy="8" r="7"/><path d="M5 8a3 3 0 0 1 6 0" stroke="#fff" stroke-width="1.2" fill="none"/></svg></div>
+        </div>
+        <svg viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2" style="width:18px;height:18px"><circle cx="5" cy="12" r="1.2"/><circle cx="12" cy="12" r="1.2"/><circle cx="19" cy="12" r="1.2"/></svg>
+      </div>
+      <!-- Primary text -->
+      <div class="mf-txt" data-target="mf-txt">Primærtekst her…</div>
+      <!-- 4:5 image area -->
+      <div class="mf-img" data-bg="mf"></div>
+      <!-- Footer: headline + description + CTA -->
+      <div class="mf-foot">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:6px">
+          <div style="flex:1;min-width:0">
+            <div class="hl" data-target="mf-hl">Headline her</div>
+            <div class="ds" data-target="mf-ds">Description her</div>
+          </div>
+          <div class="mf-cta"><button>Les mer</button></div>
+        </div>
+      </div>
+      <!-- Reaction bar -->
+      <div class="mf-react">
+        <span style="display:flex;align-items:center;gap:3px">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><path d="M7 22V10l5-7 1 1-1 5h7a2 2 0 0 1 2 2l-2 9a2 2 0 0 1-2 2H7z"/></svg> Liker
+        </span>
+        <span style="display:flex;align-items:center;gap:3px">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><path d="M21 12a8 8 0 0 1-8 8H7l-4 3V12a8 8 0 0 1 8-8h2a8 8 0 0 1 8 8z"/></svg> Kommenter
+        </span>
+        <span style="display:flex;align-items:center;gap:3px">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><path d="m15 5 6 7-6 7"/><path d="M3 12h18"/></svg> Del
+        </span>
+      </div>
+    </div>
+    <!-- No traditional safe zone for feed — it's a card. Guideline: keep text in image 80% center -->
+  </div></div>
+  <div class="pnl">
+    <label>Primary text</label>
+    <textarea data-input="mf-txt" maxlength="125" placeholder="125 tegn vises før «mer».">Primary text her…</textarea>
+    <div class="mt"><span class="c" data-count="mf-txt">0 / 125</span><span>maks 125</span></div>
+    <div class="br"><div data-fill="mf-txt"></div></div>
+    <label class="sp8">Headline</label>
+    <input type="text" data-input="mf-hl" maxlength="40" value="Headline her" placeholder="Maks 40 tegn"/>
+    <div class="mt"><span class="c" data-count="mf-hl">0 / 40</span></div>
+    <label class="sp8">Description</label>
+    <input type="text" data-input="mf-ds" maxlength="27" value="Description her" placeholder="Maks 27 tegn"/>
+    <div class="mt"><span class="c" data-count="mf-ds">0 / 27</span></div>
+    <div class="rl"><b>Meta Feed Video:</b> 1080×1350 (4:5). Primærtekst 125 tegn. Headline 40. Description 27. CTA under bilde.</div>
+    <div class="ur"><label class="fk">Bakgrunn 1080×1350<input type="file" accept="image/*" data-upload="mf"/></label><button data-clear="mf">Fjern</button></div>
+  </div>
+</div>
+
+<!-- ════ META STORY ════ -->
+<div class="plat" data-p="ms">
+  <div class="ph"><span class="pn">Meta Story</span><span class="pt">Story Ad · 9:16</span></div>
+  <div class="phone"><div class="scr">
+    <div class="bg ms" data-bg="ms"></div>
+    <div class="isl"></div>
+    <div class="sts"><span>9:41</span><span class="r">5G ▫ 87%</span></div>
+    <div class="ms-top" data-ui>
+      <div class="av" data-avatar style="width:26px;height:26px;font-size:10px;border:1.5px solid #fff">M</div>
+      <span class="nm" data-brand>BrandName</span>
+      <span class="sp">Sponset</span>
+      <div style="flex:1"></div>
+      <svg class="i" viewBox="0 0 24 24" style="width:18px;height:18px"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </div>
+    <!-- Safe: top 14% (~267px), bottom 14% (~267px) -->
+    <div class="sz" data-zone style="--zt:14%;--zb:14%;--zr:0%"><div class="zt"></div><div class="zb"></div><span class="lbl">safe zone</span></div>
+    <div class="ms-hl" data-target="ms-hl">Headline her…</div>
+    <div class="ms-cap" data-target="ms">Skriv tekst…</div>
+    <div class="ms-cta" data-ui>
+      <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px"><path d="m6 15 6-6 6 6"/></svg></div>
+      <div class="btn">Les mer</div>
+    </div>
+  </div></div>
+  <div class="pnl">
+    <label>Primary text (overlay)</label>
+    <textarea data-input="ms" maxlength="125" placeholder="Hold det kort — vises sentrert.">Skriv tekst…</textarea>
+    <div class="mt"><span class="c" data-count="ms">0 / 125</span><span>maks 125</span></div>
+    <div class="br"><div data-fill="ms"></div></div>
+    <label class="sp8">Headline</label>
+    <input type="text" data-input="ms-hl" maxlength="40" placeholder="Maks 40 tegn"/>
+    <div class="mt"><span class="c" data-count="ms-hl">0 / 40</span></div>
+    <div class="rl"><b>Meta Story:</b> 1080×1920. Safe zone 14% topp + bunn (~267px). CTA nederst. Kort tekst.</div>
+    <div class="ur"><label class="fk">Bakgrunn 1080×1920<input type="file" accept="image/*" data-upload="ms"/></label><button data-clear="ms">Fjern</button></div>
+  </div>
+</div>
+
+</div><!-- grid -->
+
+<footer>
+  <div>Morgenstern · intern ad-tekstguide for sosiale medier</div>
+  <div>Oppdatert april 2026</div>
+</footer>
+</div>
+
+<script>
+const LIMITS={
+  tt:{soft:100,hard:100},
+  ig:{soft:125,hard:2200},
+  sn:{soft:34,hard:34},
+  "mf-txt":{soft:125,hard:125},
+  "mf-hl":{soft:40,hard:40},
+  "mf-ds":{soft:27,hard:27},
+  ms:{soft:125,hard:125},
+  "ms-hl":{soft:40,hard:40},
+};
+
+/* ── Text inputs ── */
+const inputs=document.querySelectorAll("[data-input]");
+inputs.forEach(t=>{
+  const k=t.dataset.input;
+  const tgt=document.querySelector(`[data-target="${k}"]`);
+  const snH=null;
+  const cnt=document.querySelector(`[data-count="${k}"]`);
+  const fill=document.querySelector(`[data-fill="${k}"]`);
+  const lim=LIMITS[k];if(!lim)return;
+  const upd=()=>{
+    const v=t.value;
+    if(tgt) tgt.textContent=v||tgt.getAttribute("data-target");
+    if(snH) snH.textContent=v||"Heading";
+    if(cnt){const n=v.length;cnt.textContent=`${n} / ${lim.soft}`;
+      cnt.classList.toggle("w",n>lim.soft*.85&&n<=lim.soft);
+      cnt.classList.toggle("e",n>lim.soft);}
+    if(fill){const p=Math.min(100,(v.length/lim.soft)*100);fill.style.width=p+"%";
+      fill.style.background=v.length>lim.soft?"var(--err)":v.length>lim.soft*.85?"var(--warn)":"var(--ok)";}
+    if(window.__SYNC){inputs.forEach(o=>{if(o!==t&&o.value!==v){o.value=v;o.dispatchEvent(new Event("input"));}});}
+  };
+  t.addEventListener("input",upd);upd();
+});
+
+/* ── Brand ── */
+const bI=document.getElementById("brandName");
+function uB(){
+  const v=bI.value.trim()||"brand";
+  document.querySelectorAll("[data-brand]").forEach(e=>e.textContent=v);
+  const i=(v[0]||"B").toUpperCase();
+  document.querySelectorAll(".av[data-avatar]").forEach(e=>e.textContent=i);
+  document.querySelectorAll("[data-logo]").forEach(e=>{if(!e.style.backgroundImage)e.textContent=i;});
+}
+bI.addEventListener("input",uB);uB();
+
+/* ── Snap: tagline, URL, logo ── */
+const tIn=document.querySelector("[data-tagline-input]");
+if(tIn)tIn.addEventListener("input",e=>document.querySelectorAll("[data-tagline]").forEach(el=>el.textContent=e.target.value));
+const uIn=document.querySelector("[data-url-input]");
+if(uIn)uIn.addEventListener("input",e=>document.querySelectorAll("[data-url]").forEach(el=>el.textContent=e.target.value));
+function readF(f,cb){const r=new FileReader();r.onload=e=>cb(e.target.result);r.readAsDataURL(f);}
+const lU=document.querySelector("[data-logo-upload]");
+if(lU)lU.addEventListener("change",e=>{const f=e.target.files[0];if(!f)return;readF(f,u=>document.querySelectorAll("[data-logo]").forEach(el=>{el.style.backgroundImage=`url(${u})`;el.textContent="";}));});
+const lC=document.querySelector("[data-logo-clear]");
+if(lC)lC.addEventListener("click",()=>{const i=(bI.value.trim()[0]||"B").toUpperCase();document.querySelectorAll("[data-logo]").forEach(el=>{el.style.backgroundImage="";el.textContent=i;});});
+
+/* ── Image upload ── */
+function setBg(k,u){
+  const el=document.querySelector(`[data-bg="${k}"]`);if(!el)return;
+  if(!u){el.style.backgroundImage="";el.classList.remove("has-img");return;}
+  el.style.backgroundImage=`url(${u})`;el.classList.add("has-img");
+}
+document.querySelectorAll("[data-upload]").forEach(inp=>{
+  inp.addEventListener("change",e=>{
+    const f=e.target.files[0];if(!f)return;const k=inp.dataset.upload;
+    readF(f,u=>{setBg(k,u);if(window.__SYNCIMG)Object.keys(LIMITS).forEach(x=>{const kk=x.includes("-")?null:x;if(kk)setBg(kk,u);});});
+  });
+});
+document.querySelectorAll("[data-clear]").forEach(b=>b.addEventListener("click",()=>setBg(b.dataset.clear,null)));
+document.getElementById("upAll").addEventListener("change",e=>{
+  const f=e.target.files[0];if(!f)return;
+  readF(f,u=>["tt","ig","sn","mf","ms"].forEach(k=>setBg(k,u)));
+});
+
+/* ── Toggles ── */
+document.getElementById("tgSafe").addEventListener("click",e=>{e.target.classList.toggle("on");document.querySelectorAll("[data-zone]").forEach(z=>z.classList.toggle("on"));});
+document.getElementById("tgUI").addEventListener("click",e=>{e.target.classList.toggle("on");const h=e.target.classList.contains("on");document.querySelectorAll("[data-ui]").forEach(el=>el.style.opacity=h?"0.1":"");document.querySelectorAll("[data-ui-mf]").forEach(el=>{/* keep feed card visible */});});
+document.getElementById("tgSync").addEventListener("click",e=>{e.target.classList.toggle("on");window.__SYNC=e.target.classList.contains("on");});
+document.getElementById("tgSyncImg").addEventListener("click",e=>{e.target.classList.toggle("on");window.__SYNCIMG=e.target.classList.contains("on");});
+
+/* ── Text color ── */
+document.getElementById("tcW").addEventListener("click",()=>{document.body.classList.remove("dark-ui");document.getElementById("tcW").classList.add("on");document.getElementById("tcB").classList.remove("on");});
+document.getElementById("tcB").addEventListener("click",()=>{document.body.classList.add("dark-ui");document.getElementById("tcB").classList.add("on");document.getElementById("tcW").classList.remove("on");});
+
+/* ── Export tekst ── */
+document.getElementById("exportBtn").addEventListener("click",()=>{
+  const brand = document.getElementById("brandName").value.trim() || "BrandName";
+  const v = k => {
+    const el = document.querySelector(`[data-input="${k}"]`);
+    return el ? el.value.trim() : "";
+  };
+  const tagline = (document.querySelector("[data-tagline-input]") || {}).value?.trim() || "";
+  const url = (document.querySelector("[data-url-input]") || {}).value?.trim() || "";
+  const sep = "────────────────────────────────";
+  const line = (label, val) => val ? `${label}: ${val}\n` : "";
+
+  let out = "";
+
+  out += "TIKTOK IN-FEED AD\n";
+  out += line("Brand name", brand);
+  out += line("Description", v("tt"));
+  out += "\n" + sep + "\n\n";
+
+  out += "INSTAGRAM REELS AD\n";
+  out += line("Brand name", brand);
+  out += line("Caption", v("ig"));
+  out += "\n" + sep + "\n\n";
+
+  out += "SNAP AD – VIDEO 1080×1920\n";
+  out += line("Brand name", brand);
+  out += line("Tagline", tagline);
+  out += line("Headline", v("sn"));
+  if (url) out += line("URL", url);
+  out += "\n" + sep + "\n\n";
+
+  out += "META FEED – VIDEO 1080×1350\n";
+  out += line("Brand name", brand);
+  out += line("Primary text", v("mf-txt"));
+  out += line("Headline", v("mf-hl"));
+  out += line("Description", v("mf-ds"));
+  out += "\n" + sep + "\n\n";
+
+  out += "META STORY – VIDEO 1080×1920\n";
+  out += line("Brand name", brand);
+  out += line("Primary text", v("ms"));
+  out += line("Headline", v("ms-hl"));
+
+  const blob = new Blob([out], {type:"text/plain;charset=utf-8"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = `ad-tekster-${brand.toLowerCase().replace(/\s+/g,"-")}.txt`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+});
+</script>
+</body>
+</html>
