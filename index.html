@@ -8,10 +8,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;1,9..144,400;1,9..144,700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 <style>
 :root{
-  --bg:#09080A;--ink:#EDEAD6;--muted:#484038;--line:#1C1914;--card:#100F0B;
-  --accent:#FF5B2E;--ok:#2D9A4E;--warn:#B8561E;--err:#C0392B;
-  --tc:#fff;--ts:0 1px 3px rgba(0,0,0,.7);
-  --clay:0 48px 96px rgba(0,0,0,.85),0 12px 28px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.09);
+  --bg:#F4F1EC;--ink:#15130F;--muted:#6B6459;--line:#E4DED3;--card:#FBF8F3;
+  --accent:#FF5B2E;--ok:#1F7A4C;--warn:#B8561E;--err:#C0392B;
+  --tc:#fff;--ts:0 1px 3px rgba(0,0,0,.6);
+  --clay:30px 40px 60px rgba(20,18,14,.12),-10px -10px 30px rgba(255,255,255,.8),inset 0 -6px 12px rgba(0,0,0,.06);
 }
 body.dark-ui{--tc:#0a0a0a;--ts:0 1px 2px rgba(255,255,255,.5)}
 *{box-sizing:border-box}
@@ -25,7 +25,7 @@ h1 em{font-style:italic;color:var(--accent);font-weight:400}
 .hdr-r b{display:block;color:var(--accent);font-weight:700;letter-spacing:.14em}
 
 .ctrls{display:flex;gap:6px;align-items:center;margin-bottom:40px;flex-wrap:wrap}
-.chip{border:1px solid var(--line);background:transparent;padding:7px 14px;border-radius:2px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;user-select:none;transition:.15s;color:var(--muted)}
+.chip{border:1px solid var(--line);background:var(--card);padding:7px 14px;border-radius:2px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;user-select:none;transition:.15s;color:var(--muted)}
 .chip:hover{border-color:var(--ink);color:var(--ink)}
 .chip.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 .bx{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line);padding:7px 12px 7px 16px;border-radius:2px}
@@ -187,7 +187,7 @@ h1 em{font-style:italic;color:var(--accent);font-weight:400}
 .pnl label{display:block;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;font-weight:700}
 .pnl textarea,.pnl input[type=text]{
   width:100%;border:1px solid var(--line);border-radius:2px;
-  padding:10px 12px;font:14px/1.5 "Space Grotesk",sans-serif;background:var(--bg);color:var(--ink);outline:none;transition:border-color .15s;
+  padding:10px 12px;font:14px/1.5 "Space Grotesk",sans-serif;background:#fff;color:var(--ink);outline:none;transition:border-color .15s;
 }
 .pnl textarea{min-height:80px;resize:vertical}
 .pnl input[type=text]:focus,.pnl textarea:focus{border-color:var(--accent)}
@@ -201,7 +201,7 @@ h1 em{font-style:italic;color:var(--accent);font-weight:400}
 .ur{display:flex;gap:6px;margin-top:10px;align-items:center}
 .ur .fk{flex:1;font-size:9px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--muted);border:1px dashed var(--line);border-radius:2px;padding:7px 8px;text-align:center;cursor:pointer;transition:.15s}
 .ur .fk:hover{border-color:var(--accent);color:var(--accent)}
-.ur button{border:1px solid var(--line);background:transparent;border-radius:2px;padding:7px 10px;font-size:9px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;cursor:pointer;color:var(--muted);transition:.15s}
+.ur button{border:1px solid var(--line);background:#fff;border-radius:2px;padding:7px 10px;font-size:9px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;cursor:pointer;color:var(--muted);transition:.15s}
 .ur button:hover{border-color:var(--ink);color:var(--ink)}
 .ur input[type=file]{display:none}
 .sp8{margin-top:16px}
@@ -213,7 +213,6 @@ footer{margin-top:80px;padding-top:24px;border-top:1px solid var(--line);display
 <header>
   <div>
     <h1>Ad-tekst i <em>sosiale medier</em></h1>
-    <p class="sub">Visuell QA-guide for annonsekreativ. Last opp kampanjebilde, skriv teksten, og se hvordan den fremstår i hvert annonseformat med safe zones og tegngrenser.</p>
   </div>
   <div class="hdr-r">Morgenstern<br><b>Intern guide · v2.0</b></div>
 </header>
