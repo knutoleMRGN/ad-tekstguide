@@ -520,15 +520,16 @@ if(lC)lC.addEventListener("click",()=>{const i=(bI.value.trim()[0]||"B").toUpper
 function setBg(k,u){
   const el=document.querySelector(`[data-bg="${k}"]`);if(!el)return;
   if(!u){
-    el.style.backgroundImage="";el.style.backgroundSize="";el.style.backgroundPosition="";
+    el.style.backgroundImage="";el.style.backgroundSize="";el.style.backgroundPosition="";el.style.backgroundRepeat="";
     el.classList.remove("has-img");return;
   }
   el.style.backgroundImage=`url(${u})`;
   if(['tt','ig','sn','ms'].includes(k)){
     el.style.backgroundSize="100% auto";
     el.style.backgroundPosition="top center";
+    el.style.backgroundRepeat="no-repeat";
   }else{
-    el.style.backgroundSize="";el.style.backgroundPosition="";
+    el.style.backgroundSize="";el.style.backgroundPosition="";el.style.backgroundRepeat="";
   }
   el.classList.add("has-img");
 }
