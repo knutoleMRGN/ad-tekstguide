@@ -229,7 +229,7 @@ footer{margin-top:80px;padding-top:24px;border-top:1px solid var(--line);display
   <div class="chip" id="tgSync">Synk tekst</div>
   <div class="chip" id="tgSyncImg">Synk bilde</div>
   <div style="flex:1"></div>
-  <label class="chip" style="cursor:pointer">Bilde til alle<input type="file" accept="image/*" id="upAll" hidden/></label>
+  <label class="chip" style="cursor:pointer">9:16 bilde<input type="file" accept="image/*" id="upAll" hidden/></label>
   <button id="exportBtn">↓ Eksporter</button>
 </div>
 
@@ -410,7 +410,7 @@ footer{margin-top:80px;padding-top:24px;border-top:1px solid var(--line);display
     <input type="text" data-input="mf-ds" maxlength="27" value="Description her" placeholder="Maks 27 tegn"/>
     <div class="mt"><span class="c" data-count="mf-ds">0 / 27</span></div>
     <div class="rl"><b>Meta Feed Video:</b> 1080×1350 (4:5). Primærtekst 125 tegn. Headline 40. Description 27. CTA under bilde.</div>
-    <div class="ur"><label class="fk">Bakgrunn 1080×1350<input type="file" accept="image/*" data-upload="mf"/></label><button data-clear="mf">Fjern</button></div>
+    <div class="ur"><label class="fk">Bilde 1080×1350 (4:5)<input type="file" accept="image/*" data-upload="mf"/></label><button data-clear="mf">Fjern</button></div>
   </div>
 </div>
 
@@ -531,7 +531,7 @@ document.querySelectorAll("[data-upload]").forEach(inp=>{
 document.querySelectorAll("[data-clear]").forEach(b=>b.addEventListener("click",()=>setBg(b.dataset.clear,null)));
 document.getElementById("upAll").addEventListener("change",e=>{
   const f=e.target.files[0];if(!f)return;
-  readF(f,u=>["tt","ig","sn","mf","ms"].forEach(k=>setBg(k,u)));
+  readF(f,u=>["tt","ig","sn","ms"].forEach(k=>setBg(k,u)));
 });
 
 /* ── Toggles ── */
