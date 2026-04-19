@@ -519,8 +519,18 @@ if(lC)lC.addEventListener("click",()=>{const i=(bI.value.trim()[0]||"B").toUpper
 /* ── Image upload ── */
 function setBg(k,u){
   const el=document.querySelector(`[data-bg="${k}"]`);if(!el)return;
-  if(!u){el.style.backgroundImage="";el.classList.remove("has-img");return;}
-  el.style.backgroundImage=`url(${u})`;el.classList.add("has-img");
+  if(!u){
+    el.style.backgroundImage="";el.style.backgroundSize="";el.style.backgroundPosition="";
+    el.classList.remove("has-img");return;
+  }
+  el.style.backgroundImage=`url(${u})`;
+  if(['tt','ig','sn','ms'].includes(k)){
+    el.style.backgroundSize="100% auto";
+    el.style.backgroundPosition="top center";
+  }else{
+    el.style.backgroundSize="";el.style.backgroundPosition="";
+  }
+  el.classList.add("has-img");
 }
 document.querySelectorAll("[data-upload]").forEach(inp=>{
   inp.addEventListener("change",e=>{
