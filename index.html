@@ -150,7 +150,7 @@ h1 em{font-style:normal;color:var(--accent);font-weight:800}
 .mf-head-sub svg{width:3.45cqw!important;height:3.45cqw!important}
 .mf-head-dots{width:6.2cqw!important;height:6.2cqw!important;flex-shrink:0}
 .mf-txt{padding:2.1cqw 3.45cqw;font-size:3.8cqw;line-height:1.4;color:#111;white-space:pre-wrap;word-break:break-word}
-.mf-img{position:relative;width:100%;aspect-ratio:4/5;background:#222;overflow:hidden;background-size:cover;background-position:center}
+.mf-img{position:relative;width:100%;aspect-ratio:4/5;background:#222;overflow:hidden;background-size:cover;background-position:top center}
 .mf-foot{padding:2.1cqw 3.45cqw 1.4cqw;background:#fff}
 .mf-foot-row{display:flex;justify-content:space-between;align-items:center;gap:2.1cqw}
 .mf-foot-text{flex:1;min-width:0}
@@ -479,9 +479,10 @@ inputs.forEach(t=>{
   const cnt=document.querySelector(`[data-count="${k}"]`);
   const fill=document.querySelector(`[data-fill="${k}"]`);
   const lim=LIMITS[k];if(!lim)return;
+  if(tgt && !tgt.dataset.ph) tgt.dataset.ph=tgt.textContent;
   const upd=()=>{
     const v=t.value;
-    if(tgt) tgt.textContent=v||tgt.getAttribute("data-target");
+    if(tgt) tgt.textContent=v||(tgt.dataset.ph||"");
     if(snH) snH.textContent=v||"Heading";
     if(cnt){const n=v.length;cnt.textContent=`${n} / ${lim.soft}`;
       cnt.classList.toggle("w",n>lim.soft*.85&&n<=lim.soft);
