@@ -18,7 +18,7 @@ body.dark-ui{--tc:#0a0a0a;--ts:0 1px 2px rgba(255,255,255,.5)}
 html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Space Grotesk","Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}
 .wrap{max-width:1720px;margin:0 auto;padding:56px 40px 140px}
 header{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;border-bottom:1px solid var(--line);padding-bottom:40px;margin-bottom:40px}
-h1{font-family:"Syne",sans-serif;font-weight:800;font-size:clamp(44px,5.5vw,88px);letter-spacing:-.04em;line-height:.92;margin:0 0 14px}
+h1{font-family:"Syne",sans-serif;font-weight:800;font-size:clamp(40px,5vw,80px);letter-spacing:-.04em;line-height:.92;margin:0;white-space:nowrap}
 h1 em{font-style:normal;color:var(--accent);font-weight:800}
 .sub{color:var(--muted);max-width:460px;font-size:13px;line-height:1.65;margin:0;font-weight:400}
 .hdr-r{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);text-align:right;line-height:2.2}
@@ -28,9 +28,9 @@ h1 em{font-style:normal;color:var(--accent);font-weight:800}
 .chip{border:1px solid var(--line);background:var(--card);padding:7px 16px;border-radius:999px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;user-select:none;transition:.15s;color:var(--muted)}
 .chip:hover{border-color:var(--ink);color:var(--ink)}
 .chip.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
-.bx{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line);padding:7px 16px 7px 20px;border-radius:999px}
-.bx label{font-size:9px;color:var(--accent);letter-spacing:.14em;text-transform:uppercase;font-weight:700;white-space:nowrap}
-.bx input{border:none;background:transparent;font:600 14px "Space Grotesk",sans-serif;color:var(--ink);outline:none;width:130px}
+.bx{display:flex;align-items:center;gap:10px;background:#FFDB8A;border:1px solid #e5c26a;padding:7px 16px 7px 20px;border-radius:999px}
+.bx label{font-size:9px;color:#7a5a00;letter-spacing:.14em;text-transform:uppercase;font-weight:700;white-space:nowrap}
+.bx input{border:none;background:transparent;font:700 14px "Space Grotesk",sans-serif;color:#15130F;outline:none;width:130px}
 .tcg{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
 .tcg button{border:none;border-right:1px solid var(--line);background:transparent;padding:7px 16px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;color:var(--muted);transition:.15s;font-family:"Space Grotesk",sans-serif}
 .tcg button:last-child{border-right:none}
@@ -45,6 +45,7 @@ h1 em{font-style:normal;color:var(--accent);font-weight:800}
 @media(max-width:600px){.grid{grid-template-columns:1fr}}
 
 .plat{display:flex;flex-direction:column;gap:20px}
+.plat .phone{order:10}.plat .pnl{order:5}
 .ph{display:flex;flex-direction:column;gap:5px;padding-bottom:4px}
 .pn{font-family:"Syne",sans-serif;font-weight:800;font-size:22px;letter-spacing:-.03em;line-height:1;color:var(--ink)}
 .pt{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600}
@@ -217,7 +218,7 @@ footer{margin-top:80px;padding-top:24px;border-top:1px solid var(--line);display
 <div class="wrap">
 <header>
   <div>
-    <h1>Ad-tekst i <em>sosiale medier</em></h1>
+    <h1>MRGN-<em>SoMetekst</em></h1>
   </div>
   <div class="hdr-r">Morgenstern<br><b>Intern guide · v2.0</b></div>
 </header>
@@ -226,7 +227,7 @@ footer{margin-top:80px;padding-top:24px;border-top:1px solid var(--line);display
   <div class="bx"><label>Brand</label><input id="brandName" value="BrandName" maxlength="30"/></div>
   <div class="tcg"><button id="tcW" class="on">Hvit tekst</button><button id="tcB">Sort tekst</button></div>
   <div class="chip" id="tgSafe">Safe zones</div>
-  <div class="chip" id="tgSync">Synk tekst</div>
+  <div class="chip on" id="tgSync">Synk tekst</div>
   <div class="chip" id="tgSyncImg">Synk bilde</div>
   <div style="flex:1"></div>
   <label class="chip" style="cursor:pointer">9:16 bilde<input type="file" accept="image/*" id="upAll" hidden/></label>
@@ -544,6 +545,7 @@ document.getElementById("upAll").addEventListener("change",e=>{
 /* ── Toggles ── */
 document.getElementById("tgSafe").addEventListener("click",e=>{e.target.classList.toggle("on");document.querySelectorAll("[data-zone]").forEach(z=>z.classList.toggle("on"));});
 
+window.__SYNC=true;
 document.getElementById("tgSync").addEventListener("click",e=>{e.target.classList.toggle("on");window.__SYNC=e.target.classList.contains("on");});
 document.getElementById("tgSyncImg").addEventListener("click",e=>{e.target.classList.toggle("on");window.__SYNCIMG=e.target.classList.contains("on");});
 
