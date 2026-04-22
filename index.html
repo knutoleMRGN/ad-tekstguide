@@ -286,7 +286,7 @@ footer{margin-top:80px;padding-top:24px;border-top:1px solid var(--line);display
   </div></div>
   <div class="pnl">
     <label>Heading</label>
-    <textarea data-input="tt" maxlength="100" placeholder="Maks 100 tegn. 4 linjer vises."></textarea>
+    <textarea data-input="tt" data-sync maxlength="100" placeholder="Maks 100 tegn. 4 linjer vises."></textarea>
     <div class="xtra">
       <div class="mt"><span class="c" data-count="tt">0 / 100</span><span>maks 100</span></div>
       <div class="br"><div data-fill="tt"></div></div>
@@ -327,7 +327,7 @@ footer{margin-top:80px;padding-top:24px;border-top:1px solid var(--line);display
   </div></div>
   <div class="pnl">
     <label>Heading</label>
-    <textarea data-input="ig" maxlength="2200" placeholder="Første 125 tegn vises."></textarea>
+    <textarea data-input="ig" data-sync maxlength="2200" placeholder="Første 125 tegn vises."></textarea>
     <div class="xtra">
       <div class="mt"><span class="c" data-count="ig">0 / 125</span><span>maks 2 200</span></div>
       <div class="br"><div data-fill="ig"></div></div>
@@ -367,7 +367,7 @@ footer{margin-top:80px;padding-top:24px;border-top:1px solid var(--line);display
   </div></div>
   <div class="pnl">
     <label>Heading</label>
-    <input type="text" data-input="sn" maxlength="34" placeholder="Maks 34 tegn" value=""/>
+    <input type="text" data-input="sn" data-sync maxlength="34" placeholder="Maks 34 tegn" value=""/>
     <div class="xtra">
       <div class="mt"><span class="c" data-count="sn">0 / 34</span><span>maks 34</span></div>
       <div class="br"><div data-fill="sn"></div></div>
@@ -429,13 +429,13 @@ footer{margin-top:80px;padding-top:24px;border-top:1px solid var(--line);display
   </div></div>
   <div class="pnl">
     <label>Heading</label>
-    <textarea data-input="mf-txt" maxlength="125" placeholder="125 tegn vises før «mer»."></textarea>
+    <textarea data-input="mf-txt" data-sync maxlength="125" placeholder="125 tegn vises før «mer»."></textarea>
     <div class="xtra">
       <div class="mt"><span class="c" data-count="mf-txt">0 / 125</span><span>maks 125</span></div>
       <div class="br"><div data-fill="mf-txt"></div></div>
       <label class="sp8">Headline</label>
-      <input type="text" data-input="mf-hl" maxlength="40" value="" placeholder="Maks 40 tegn"/>
-      <div class="mt"><span class="c" data-count="mf-hl">0 / 40</span></div>
+      <input type="text" data-input="mf-hl" maxlength="27" value="" placeholder="Maks 27 tegn"/>
+      <div class="mt"><span class="c" data-count="mf-hl">0 / 27</span></div>
       <label class="sp8">Description</label>
       <input type="text" data-input="mf-ds" maxlength="27" value="" placeholder="Maks 27 tegn"/>
       <div class="mt"><span class="c" data-count="mf-ds">0 / 27</span></div>
@@ -471,7 +471,7 @@ footer{margin-top:80px;padding-top:24px;border-top:1px solid var(--line);display
   </div></div>
   <div class="pnl">
     <label>Heading</label>
-    <textarea data-input="ms" maxlength="125" placeholder="Hold det kort — vises sentrert."></textarea>
+    <textarea data-input="ms" data-sync maxlength="125" placeholder="Hold det kort — vises sentrert."></textarea>
     <div class="xtra">
       <div class="mt"><span class="c" data-count="ms">0 / 125</span><span>maks 125</span></div>
       <div class="br"><div data-fill="ms"></div></div>
@@ -500,7 +500,7 @@ const LIMITS={
   ig:{soft:125,hard:2200},
   sn:{soft:34,hard:34},
   "mf-txt":{soft:125,hard:125},
-  "mf-hl":{soft:40,hard:40},
+  "mf-hl":{soft:27,hard:27},
   "mf-ds":{soft:27,hard:27},
   ms:{soft:125,hard:125},
   "ms-hl":{soft:40,hard:40},
@@ -523,7 +523,7 @@ inputs.forEach(t=>{
       cnt.classList.toggle("e",n>lim.soft);}
     if(fill){const p=Math.min(100,(v.length/lim.soft)*100);fill.style.width=p+"%";
       fill.style.background=v.length>lim.soft?"var(--err)":v.length>lim.soft*.85?"var(--warn)":"var(--ok)";}
-    if(window.__SYNC){inputs.forEach(o=>{if(o!==t&&o.value!==v){o.value=v;o.dispatchEvent(new Event("input"));}});}
+    if(window.__SYNC && "sync" in t.dataset){document.querySelectorAll("[data-sync]").forEach(o=>{if(o!==t&&o.value!==v){o.value=v;o.dispatchEvent(new Event("input"));}});}
   };
   t.addEventListener("input",upd);upd();
 });
