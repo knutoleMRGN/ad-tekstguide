@@ -199,10 +199,12 @@ h1 em{font-style:normal;color:var(--accent);font-weight:800}
 }
 .pnl textarea{min-height:80px;resize:vertical}
 .pnl input[type=text]:focus,.pnl textarea:focus{border-color:var(--accent)}
-/* Export fields — green border */
+/* Export fields — green border, equal height */
 .pnl textarea[data-input],.pnl input[type=text][data-input]{
   background:#fff;color:var(--ink);border:1px solid var(--ok);font-weight:600;
 }
+.pnl textarea[data-input]{min-height:88px;resize:none}
+.pnl input[type=text][data-input]{height:88px;display:block;padding-top:12px;vertical-align:top}
 .pnl textarea[data-input]:focus,.pnl input[type=text][data-input]:focus{border-color:var(--ok);outline:none}
 .pnl select{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:2px;font-size:13px;background:var(--bg);color:var(--ink)}
 .mt{display:flex;justify-content:space-between;align-items:center;margin-top:6px;font-size:11px;color:var(--muted)}
@@ -222,10 +224,14 @@ h1 em{font-style:normal;color:var(--accent);font-weight:800}
 /* ── Expand extras ── */
 .xtra{display:none}
 .xtra.open{display:block}
-.xbtn{display:block;width:100%;margin-top:12px;border:1px dashed var(--line);background:transparent;border-radius:999px;padding:6px 12px;font-size:9px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;cursor:pointer;color:var(--muted);transition:.15s;font-family:"Space Grotesk",sans-serif}
+.xbtn,.vmbtn{display:block;width:100%;margin-top:8px;border:1px dashed var(--line);background:transparent;border-radius:999px;padding:6px 12px;font-size:9px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;cursor:pointer;color:var(--muted);transition:.15s;font-family:"Space Grotesk",sans-serif}
 .xbtn:hover{border-color:var(--accent);color:var(--accent)}
 .xbtn.open{border-style:solid;color:var(--ink);border-color:var(--line)}
+.vmbtn:hover{border-color:var(--ink);color:var(--ink)}
+/* Phone toggle */
+.phone.hidden{display:none}
 
+@media(max-width:600px){.phone{max-width:320px;margin:0 auto}.wrap{padding:32px 20px 80px}}
 footer{margin-top:80px;padding-top:24px;border-top:1px solid var(--line);display:flex;justify-content:space-between;font-size:9px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase}
 </style>
 </head>
@@ -252,9 +258,7 @@ footer{margin-top:80px;padding-top:24px;border-top:1px solid var(--line);display
   <div class="tcg"><button id="tcW" class="on">Hvit tekst</button><button id="tcB">Sort tekst</button></div>
   <div class="chip" id="tgSafe">Safe zones</div>
   <div class="chip on" id="tgSync">Synk tekst</div>
-  <div class="chip" id="tgSyncImg">Synk bilde</div>
   <div style="flex:1"></div>
-  <label class="chip" style="cursor:pointer">9:16 bilde<input type="file" accept="image/*" id="upAll" hidden/></label>
   <button id="exportBtn">↓ Eksporter</button>
 </div>
 
@@ -290,6 +294,7 @@ footer{margin-top:80px;padding-top:24px;border-top:1px solid var(--line);display
       <div class="ur"><label class="fk">Bakgrunn 1080×1920<input type="file" accept="image/*" data-upload="tt"/></label><button data-clear="tt">Fjern</button></div>
     </div>
     <button class="xbtn">+ Vis mer</button>
+    <button class="vmbtn">▼ Vis mockup</button>
   </div>
 </div>
 
@@ -330,6 +335,7 @@ footer{margin-top:80px;padding-top:24px;border-top:1px solid var(--line);display
       <div class="ur"><label class="fk">Bakgrunn 1080×1920<input type="file" accept="image/*" data-upload="ig"/></label><button data-clear="ig">Fjern</button></div>
     </div>
     <button class="xbtn">+ Vis mer</button>
+    <button class="vmbtn">▼ Vis mockup</button>
   </div>
 </div>
 
@@ -374,6 +380,7 @@ footer{margin-top:80px;padding-top:24px;border-top:1px solid var(--line);display
       <div class="ur"><label class="fk">Bakgrunn 1080×1920<input type="file" accept="image/*" data-upload="sn"/></label><button data-clear="sn">Fjern</button></div>
     </div>
     <button class="xbtn">+ Vis mer</button>
+    <button class="vmbtn">▼ Vis mockup</button>
   </div>
 </div>
 
@@ -436,6 +443,7 @@ footer{margin-top:80px;padding-top:24px;border-top:1px solid var(--line);display
       <div class="ur"><label class="fk">Bilde 1080×1350 (4:5)<input type="file" accept="image/*" data-upload="mf"/></label><button data-clear="mf">Fjern</button></div>
     </div>
     <button class="xbtn">+ Vis mer</button>
+    <button class="vmbtn">▼ Vis mockup</button>
   </div>
 </div>
 
@@ -474,6 +482,7 @@ footer{margin-top:80px;padding-top:24px;border-top:1px solid var(--line);display
       <div class="ur"><label class="fk">Bakgrunn 1080×1920<input type="file" accept="image/*" data-upload="ms"/></label><button data-clear="ms">Fjern</button></div>
     </div>
     <button class="xbtn">+ Vis mer</button>
+    <button class="vmbtn">▼ Vis mockup</button>
   </div>
 </div>
 
@@ -557,21 +566,16 @@ function setBg(k,u){
 document.querySelectorAll("[data-upload]").forEach(inp=>{
   inp.addEventListener("change",e=>{
     const f=e.target.files[0];if(!f)return;const k=inp.dataset.upload;
-    readF(f,u=>{setBg(k,u);if(window.__SYNCIMG)["tt","ig","sn","mf","ms"].forEach(k=>setBg(k,u));});
+    readF(f,u=>setBg(k,u));
   });
 });
 document.querySelectorAll("[data-clear]").forEach(b=>b.addEventListener("click",()=>setBg(b.dataset.clear,null)));
-document.getElementById("upAll").addEventListener("change",e=>{
-  const f=e.target.files[0];if(!f)return;
-  readF(f,u=>["tt","ig","sn","mf","ms"].forEach(k=>setBg(k,u)));
-});
 
 /* ── Toggles ── */
 document.getElementById("tgSafe").addEventListener("click",e=>{e.target.classList.toggle("on");document.querySelectorAll("[data-zone]").forEach(z=>z.classList.toggle("on"));});
 
 window.__SYNC=true;
 document.getElementById("tgSync").addEventListener("click",e=>{e.target.classList.toggle("on");window.__SYNC=e.target.classList.contains("on");});
-document.getElementById("tgSyncImg").addEventListener("click",e=>{e.target.classList.toggle("on");window.__SYNCIMG=e.target.classList.contains("on");});
 
 /* ── Text color ── */
 document.getElementById("tcW").addEventListener("click",()=>{document.body.classList.remove("dark-ui");document.getElementById("tcW").classList.add("on");document.getElementById("tcB").classList.remove("on");});
@@ -584,6 +588,15 @@ document.querySelectorAll(".ptg-chip").forEach(chip=>{
     const p=chip.dataset.plat;
     const plat=document.querySelector(`.plat[data-p="${p}"]`);
     if(plat) plat.style.display=chip.classList.contains("on")?"":"none";
+  });
+});
+
+/* ── Vis mockup toggle ── */
+document.querySelectorAll(".vmbtn").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    const phone=btn.closest(".plat").querySelector(".phone");
+    const hidden=phone.classList.toggle("hidden");
+    btn.textContent=hidden?"▶ Vis mockup":"▼ Skjul mockup";
   });
 });
 
