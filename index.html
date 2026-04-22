@@ -24,6 +24,13 @@ h1 em{font-style:normal;color:var(--accent);font-weight:800}
 .hdr-r{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);text-align:right;line-height:2.2}
 .hdr-r b{display:block;color:var(--accent);font-weight:700;letter-spacing:.14em}
 
+/* ── Platform toggle bar ── */
+.ptg-bar{display:flex;gap:6px;align-items:center;margin-bottom:12px;flex-wrap:wrap;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:10px 16px}
+.ptg-lbl{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700;white-space:nowrap;margin-right:4px}
+.ptg-chip{border:1px solid var(--line);background:var(--bg);padding:6px 14px;border-radius:999px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;user-select:none;transition:.15s;color:var(--muted)}
+.ptg-chip:hover{border-color:var(--ink);color:var(--ink)}
+.ptg-chip.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+
 .ctrls{display:flex;gap:6px;align-items:center;margin-bottom:40px;flex-wrap:wrap}
 .chip{border:1px solid var(--line);background:var(--card);padding:7px 16px;border-radius:999px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;user-select:none;transition:.15s;color:var(--muted)}
 .chip:hover{border-color:var(--ink);color:var(--ink)}
@@ -211,6 +218,14 @@ h1 em{font-style:normal;color:var(--accent);font-weight:800}
 .ur button:hover{border-color:var(--ink);color:var(--ink)}
 .ur input[type=file]{display:none}
 .sp8{margin-top:16px}
+
+/* ── Expand extras ── */
+.xtra{display:none}
+.xtra.open{display:block}
+.xbtn{display:block;width:100%;margin-top:12px;border:1px dashed var(--line);background:transparent;border-radius:999px;padding:6px 12px;font-size:9px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;cursor:pointer;color:var(--muted);transition:.15s;font-family:"Space Grotesk",sans-serif}
+.xbtn:hover{border-color:var(--accent);color:var(--accent)}
+.xbtn.open{border-style:solid;color:var(--ink);border-color:var(--line)}
+
 footer{margin-top:80px;padding-top:24px;border-top:1px solid var(--line);display:flex;justify-content:space-between;font-size:9px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase}
 </style>
 </head>
@@ -222,6 +237,15 @@ footer{margin-top:80px;padding-top:24px;border-top:1px solid var(--line);display
   </div>
   <div class="hdr-r">Morgenstern<br><b>Intern guide · v2.0</b></div>
 </header>
+
+<div class="ptg-bar">
+  <span class="ptg-lbl">Vis</span>
+  <div class="ptg-chip on" data-plat="tt">TikTok</div>
+  <div class="ptg-chip on" data-plat="ig">Instagram</div>
+  <div class="ptg-chip on" data-plat="sn">Snap</div>
+  <div class="ptg-chip on" data-plat="mf">Meta Feed</div>
+  <div class="ptg-chip on" data-plat="ms">Meta Story</div>
+</div>
 
 <div class="ctrls">
   <div class="bx"><label>Brand</label><input id="brandName" value="BrandName" maxlength="30"/></div>
@@ -244,7 +268,6 @@ footer{margin-top:80px;padding-top:24px;border-top:1px solid var(--line);display
     <div class="isl"></div>
     <div class="sts"><span>9:41</span><span class="r">5G ▫ 87%</span></div>
     <div class="tt-tabs" data-ui><span>Utforsk</span><span>Følger</span><span class="a">For deg</span></div>
-    <!-- Safe: top 8% (~150px), right 13% (~140px), bottom 25% (~484px, CTA+caption+sponsored) -->
     <div class="sz" data-zone style="--zt:8%;--zb:25%;--zr:13%"><div class="zt"></div><div class="zb"></div><div class="zr"></div><span class="lbl">safe zone</span></div>
     <div class="tt-sb" data-ui>
       <div class="av" data-avatar>M</div>
@@ -252,7 +275,6 @@ footer{margin-top:80px;padding-top:24px;border-top:1px solid var(--line);display
       <div class="it"><div class="ic"><svg class="i lg" viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-8 8H7l-4 3V12a8 8 0 0 1 8-8h2a8 8 0 0 1 8 8z" fill="#fff"/></svg></div><span>2 341</span></div>
       <div class="it"><div class="ic"><svg class="i lg" viewBox="0 0 24 24"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7"/><path d="M12 3v13"/><path d="m7 8 5-5 5 5"/></svg></div><span>Del</span></div>
     </div>
-    <!-- Bottom stack: CTA → Sponsored → Music → Caption → Username -->
     <div class="usr" data-ui style="bottom:106px">@<span data-brand>BrandName</span>_no</div>
     <div class="cap" data-target="tt" style="bottom:80px;font-family:'SF Pro Text',-apple-system,sans-serif">Skriv heading…</div>
     <div class="tt-sponsored" data-ui>Sponset</div>
@@ -261,10 +283,13 @@ footer{margin-top:80px;padding-top:24px;border-top:1px solid var(--line);display
   <div class="pnl">
     <label>Description</label>
     <textarea data-input="tt" maxlength="100" placeholder="Maks 100 tegn. 4 linjer vises.">Skriv description her…</textarea>
-    <div class="mt"><span class="c" data-count="tt">0 / 100</span><span>maks 100</span></div>
-    <div class="br"><div data-fill="tt"></div></div>
-    <div class="rl"><b>TikTok Ad:</b> 1080×1920. Maks 100 tegn heading, 4 linjer før «mer». CTA-knapp nederst. Safe zone: topp 150px, bunn 484px, høyre 140px.</div>
-    <div class="ur"><label class="fk">Bakgrunn 1080×1920<input type="file" accept="image/*" data-upload="tt"/></label><button data-clear="tt">Fjern</button></div>
+    <div class="xtra">
+      <div class="mt"><span class="c" data-count="tt">0 / 100</span><span>maks 100</span></div>
+      <div class="br"><div data-fill="tt"></div></div>
+      <div class="rl"><b>TikTok Ad:</b> 1080×1920. Maks 100 tegn heading, 4 linjer før «mer». CTA-knapp nederst. Safe zone: topp 150px, bunn 484px, høyre 140px.</div>
+      <div class="ur"><label class="fk">Bakgrunn 1080×1920<input type="file" accept="image/*" data-upload="tt"/></label><button data-clear="tt">Fjern</button></div>
+    </div>
+    <button class="xbtn">+ Vis mer</button>
   </div>
 </div>
 
@@ -276,7 +301,6 @@ footer{margin-top:80px;padding-top:24px;border-top:1px solid var(--line);display
     <div class="isl"></div>
     <div class="sts"><span>9:41</span><span class="r">5G ▫ 87%</span></div>
     <div class="ig-bk" data-ui><svg class="i" viewBox="0 0 24 24"><path d="m15 5-7 7 7 7"/></svg></div>
-    <!-- Safe: top 8%, right 13%, bottom 15% -->
     <div class="sz" data-zone style="--zt:8%;--zb:15%;--zr:13%"><div class="zt"></div><div class="zb"></div><div class="zr"></div><span class="lbl">safe zone</span></div>
     <div class="ig-sb" data-ui>
       <div class="it"><div class="ic"><svg class="i lg" viewBox="0 0 24 24"><path d="M12 21s-7-4.5-9-9.5C1.5 7 5 4 8 5c2 .7 3 2 4 3 1-1 2-2.3 4-3 3-1 6.5 2 5 6.5-2 5-9 9.5-9 9.5z"/></svg></div><span>89,2k</span></div>
@@ -299,10 +323,13 @@ footer{margin-top:80px;padding-top:24px;border-top:1px solid var(--line);display
   <div class="pnl">
     <label>Caption</label>
     <textarea data-input="ig" maxlength="2200" placeholder="Første 125 tegn vises.">Skriv caption her…</textarea>
-    <div class="mt"><span class="c" data-count="ig">0 / 125</span><span>maks 2 200</span></div>
-    <div class="br"><div data-fill="ig"></div></div>
-    <div class="rl"><b>IG Reels Ad:</b> 1080×1920. 125 tegn før trunkering. Hashtags i kommentar. Safe zone: topp 8%, bunn 15%, høyre 13%.</div>
-    <div class="ur"><label class="fk">Bakgrunn 1080×1920<input type="file" accept="image/*" data-upload="ig"/></label><button data-clear="ig">Fjern</button></div>
+    <div class="xtra">
+      <div class="mt"><span class="c" data-count="ig">0 / 125</span><span>maks 2 200</span></div>
+      <div class="br"><div data-fill="ig"></div></div>
+      <div class="rl"><b>IG Reels Ad:</b> 1080×1920. 125 tegn før trunkering. Hashtags i kommentar. Safe zone: topp 8%, bunn 15%, høyre 13%.</div>
+      <div class="ur"><label class="fk">Bakgrunn 1080×1920<input type="file" accept="image/*" data-upload="ig"/></label><button data-clear="ig">Fjern</button></div>
+    </div>
+    <button class="xbtn">+ Vis mer</button>
   </div>
 </div>
 
@@ -318,7 +345,6 @@ footer{margin-top:80px;padding-top:24px;border-top:1px solid var(--line);display
       <div class="brow"><div class="bl" data-logo data-avatar>B</div><div class="bm"><div class="b1"><span data-brand>BrandName</span><span class="an">· Annonse</span></div><div class="bt" data-target="sn">Headline her</div></div></div>
       <span class="kb">⋮</span>
     </div>
-    <!-- Safe: top 8% (~150px), bottom 8% (~150px), sides 6% (~65px) per Snap spec -->
     <div class="sz" data-zone style="--zt:8%;--zb:8%;--zr:0%"><div class="zt"></div><div class="zb"></div><span class="lbl">safe zone</span></div>
     <div class="sa-card" data-ui>
       <div class="cb">
@@ -336,15 +362,18 @@ footer{margin-top:80px;padding-top:24px;border-top:1px solid var(--line);display
   <div class="pnl">
     <label>Headline</label>
     <input type="text" data-input="sn" maxlength="34" placeholder="Maks 34 tegn" value="Headline her"/>
-    <div class="mt"><span class="c" data-count="sn">0 / 34</span><span>maks 34</span></div>
-    <div class="br"><div data-fill="sn"></div></div>
-    <label class="sp8">URL</label>
-    <input type="text" data-url-input value="brandname.no" maxlength="40" />
-    <label class="sp8">Tagline (header + kort)</label>
-    <input type="text" data-tagline-input value="Tagline her" maxlength="40" />
-    <div class="ur"><label class="fk">Logo (kvadrat)<input type="file" accept="image/*" data-logo-upload/></label><button data-logo-clear>Fjern</button></div>
-    <div class="rl"><b>Snap Ad:</b> 1080×1920. Heading maks 34 tegn — vises i attachment-kortet. Safe zone: 150px topp + bunn, 6% sider.</div>
-    <div class="ur"><label class="fk">Bakgrunn 1080×1920<input type="file" accept="image/*" data-upload="sn"/></label><button data-clear="sn">Fjern</button></div>
+    <div class="xtra">
+      <div class="mt"><span class="c" data-count="sn">0 / 34</span><span>maks 34</span></div>
+      <div class="br"><div data-fill="sn"></div></div>
+      <label class="sp8">URL</label>
+      <input type="text" data-url-input value="brandname.no" maxlength="40"/>
+      <label class="sp8">Tagline (header + kort)</label>
+      <input type="text" data-tagline-input value="Tagline her" maxlength="40"/>
+      <div class="ur"><label class="fk">Logo (kvadrat)<input type="file" accept="image/*" data-logo-upload/></label><button data-logo-clear>Fjern</button></div>
+      <div class="rl"><b>Snap Ad:</b> 1080×1920. Heading maks 34 tegn — vises i attachment-kortet. Safe zone: 150px topp + bunn, 6% sider.</div>
+      <div class="ur"><label class="fk">Bakgrunn 1080×1920<input type="file" accept="image/*" data-upload="sn"/></label><button data-clear="sn">Fjern</button></div>
+    </div>
+    <button class="xbtn">+ Vis mer</button>
   </div>
 </div>
 
@@ -354,9 +383,7 @@ footer{margin-top:80px;padding-top:24px;border-top:1px solid var(--line);display
   <div class="phone feed-phone"><div class="scr">
     <div class="isl"></div>
     <div class="sts"><span>9:41</span><span class="r">5G ▫ 87%</span></div>
-    <!-- Facebook chrome -->
     <div class="mf-scroll" data-ui-mf>
-      <!-- FB top nav bar -->
       <div class="mf-nav">
         <svg class="mf-nav-logo" viewBox="0 0 24 24" fill="#1877F2"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.99 3.657 9.128 8.438 9.879V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.989C18.343 21.129 22 16.99 22 12c0-5.523-4.477-10-10-10z"/></svg>
         <div style="flex:1"></div>
@@ -364,7 +391,6 @@ footer{margin-top:80px;padding-top:24px;border-top:1px solid var(--line);display
         <div class="mf-nav-btn"><svg viewBox="0 0 24 24" fill="none" stroke="#444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6"/><path d="m17 17-2-2"/></svg></div>
         <div class="mf-nav-btn"><svg viewBox="0 0 24 24" fill="none" stroke="#444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11 22 2l-9 19-2-8-8-2z"/></svg></div>
       </div>
-      <!-- Post header -->
       <div class="mf-head">
         <div class="av" data-avatar>B</div>
         <div class="mf-head-info">
@@ -376,11 +402,8 @@ footer{margin-top:80px;padding-top:24px;border-top:1px solid var(--line);display
         </div>
         <svg class="mf-head-dots" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2"><circle cx="5" cy="12" r="1.2"/><circle cx="12" cy="12" r="1.2"/><circle cx="19" cy="12" r="1.2"/></svg>
       </div>
-      <!-- Primary text -->
       <div class="mf-txt" data-target="mf-txt">Primærtekst her…</div>
-      <!-- 4:5 image area -->
       <div class="mf-img" data-bg="mf"></div>
-      <!-- Footer: headline + description + CTA -->
       <div class="mf-foot">
         <div class="mf-foot-row">
           <div class="mf-foot-text">
@@ -390,28 +413,29 @@ footer{margin-top:80px;padding-top:24px;border-top:1px solid var(--line);display
           <div class="mf-cta"><button>Les mer</button></div>
         </div>
       </div>
-      <!-- Reaction bar -->
       <div class="mf-react">
         <span><svg viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 22V10l5-7 1 1-1 5h7a2 2 0 0 1 2 2l-2 9a2 2 0 0 1-2 2H7z"/></svg> Liker</span>
         <span><svg viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-8 8H7l-4 3V12a8 8 0 0 1 8-8h2a8 8 0 0 1 8 8z"/></svg> Kommenter</span>
         <span><svg viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5 6 7-6 7"/><path d="M3 12h18"/></svg> Del</span>
       </div>
     </div>
-    <!-- No traditional safe zone for feed — it's a card. Guideline: keep text in image 80% center -->
   </div></div>
   <div class="pnl">
     <label>Primary text</label>
     <textarea data-input="mf-txt" maxlength="125" placeholder="125 tegn vises før «mer».">Primary text her…</textarea>
-    <div class="mt"><span class="c" data-count="mf-txt">0 / 125</span><span>maks 125</span></div>
-    <div class="br"><div data-fill="mf-txt"></div></div>
-    <label class="sp8">Headline</label>
-    <input type="text" data-input="mf-hl" maxlength="40" value="Headline her" placeholder="Maks 40 tegn"/>
-    <div class="mt"><span class="c" data-count="mf-hl">0 / 40</span></div>
-    <label class="sp8">Description</label>
-    <input type="text" data-input="mf-ds" maxlength="27" value="Description her" placeholder="Maks 27 tegn"/>
-    <div class="mt"><span class="c" data-count="mf-ds">0 / 27</span></div>
-    <div class="rl"><b>Meta Feed Video:</b> 1080×1350 (4:5). Primærtekst 125 tegn. Headline 40. Description 27. CTA under bilde.</div>
-    <div class="ur"><label class="fk">Bilde 1080×1350 (4:5)<input type="file" accept="image/*" data-upload="mf"/></label><button data-clear="mf">Fjern</button></div>
+    <div class="xtra">
+      <div class="mt"><span class="c" data-count="mf-txt">0 / 125</span><span>maks 125</span></div>
+      <div class="br"><div data-fill="mf-txt"></div></div>
+      <label class="sp8">Headline</label>
+      <input type="text" data-input="mf-hl" maxlength="40" value="Headline her" placeholder="Maks 40 tegn"/>
+      <div class="mt"><span class="c" data-count="mf-hl">0 / 40</span></div>
+      <label class="sp8">Description</label>
+      <input type="text" data-input="mf-ds" maxlength="27" value="Description her" placeholder="Maks 27 tegn"/>
+      <div class="mt"><span class="c" data-count="mf-ds">0 / 27</span></div>
+      <div class="rl"><b>Meta Feed Video:</b> 1080×1350 (4:5). Primærtekst 125 tegn. Headline 40. Description 27. CTA under bilde.</div>
+      <div class="ur"><label class="fk">Bilde 1080×1350 (4:5)<input type="file" accept="image/*" data-upload="mf"/></label><button data-clear="mf">Fjern</button></div>
+    </div>
+    <button class="xbtn">+ Vis mer</button>
   </div>
 </div>
 
@@ -429,7 +453,6 @@ footer{margin-top:80px;padding-top:24px;border-top:1px solid var(--line);display
       <div style="flex:1"></div>
       <svg class="i" viewBox="0 0 24 24" style="width:18px;height:18px"><path d="M18 6 6 18M6 6l12 12"/></svg>
     </div>
-    <!-- Safe: top 14% (~267px), bottom 14% (~267px) -->
     <div class="sz" data-zone style="--zt:14%;--zb:14%;--zr:0%"><div class="zt"></div><div class="zb"></div><span class="lbl">safe zone</span></div>
     <div class="ms-hl" data-target="ms-hl">Headline her…</div>
     <div class="ms-cap" data-target="ms">Skriv tekst…</div>
@@ -441,13 +464,16 @@ footer{margin-top:80px;padding-top:24px;border-top:1px solid var(--line);display
   <div class="pnl">
     <label>Primary text (overlay)</label>
     <textarea data-input="ms" maxlength="125" placeholder="Hold det kort — vises sentrert.">Skriv tekst…</textarea>
-    <div class="mt"><span class="c" data-count="ms">0 / 125</span><span>maks 125</span></div>
-    <div class="br"><div data-fill="ms"></div></div>
-    <label class="sp8">Headline</label>
-    <input type="text" data-input="ms-hl" maxlength="40" placeholder="Maks 40 tegn"/>
-    <div class="mt"><span class="c" data-count="ms-hl">0 / 40</span></div>
-    <div class="rl"><b>Meta Story:</b> 1080×1920. Safe zone 14% topp + bunn (~267px). CTA nederst. Kort tekst.</div>
-    <div class="ur"><label class="fk">Bakgrunn 1080×1920<input type="file" accept="image/*" data-upload="ms"/></label><button data-clear="ms">Fjern</button></div>
+    <div class="xtra">
+      <div class="mt"><span class="c" data-count="ms">0 / 125</span><span>maks 125</span></div>
+      <div class="br"><div data-fill="ms"></div></div>
+      <label class="sp8">Headline</label>
+      <input type="text" data-input="ms-hl" maxlength="40" placeholder="Maks 40 tegn"/>
+      <div class="mt"><span class="c" data-count="ms-hl">0 / 40</span></div>
+      <div class="rl"><b>Meta Story:</b> 1080×1920. Safe zone 14% topp + bunn (~267px). CTA nederst. Kort tekst.</div>
+      <div class="ur"><label class="fk">Bakgrunn 1080×1920<input type="file" accept="image/*" data-upload="ms"/></label><button data-clear="ms">Fjern</button></div>
+    </div>
+    <button class="xbtn">+ Vis mer</button>
   </div>
 </div>
 
@@ -476,7 +502,6 @@ const inputs=document.querySelectorAll("[data-input]");
 inputs.forEach(t=>{
   const k=t.dataset.input;
   const tgt=document.querySelector(`[data-target="${k}"]`);
-  const snH=null;
   const cnt=document.querySelector(`[data-count="${k}"]`);
   const fill=document.querySelector(`[data-fill="${k}"]`);
   const lim=LIMITS[k];if(!lim)return;
@@ -484,7 +509,6 @@ inputs.forEach(t=>{
   const upd=()=>{
     const v=t.value;
     if(tgt) tgt.textContent=v||(tgt.dataset.ph||"");
-    if(snH) snH.textContent=v||"Heading";
     if(cnt){const n=v.length;cnt.textContent=`${n} / ${lim.soft}`;
       cnt.classList.toggle("w",n>lim.soft*.85&&n<=lim.soft);
       cnt.classList.toggle("e",n>lim.soft);}
@@ -553,53 +577,49 @@ document.getElementById("tgSyncImg").addEventListener("click",e=>{e.target.class
 document.getElementById("tcW").addEventListener("click",()=>{document.body.classList.remove("dark-ui");document.getElementById("tcW").classList.add("on");document.getElementById("tcB").classList.remove("on");});
 document.getElementById("tcB").addEventListener("click",()=>{document.body.classList.add("dark-ui");document.getElementById("tcB").classList.add("on");document.getElementById("tcW").classList.remove("on");});
 
-/* ── Export tekst ── */
+/* ── Platform toggle bar ── */
+document.querySelectorAll(".ptg-chip").forEach(chip=>{
+  chip.addEventListener("click",()=>{
+    chip.classList.toggle("on");
+    const p=chip.dataset.plat;
+    const plat=document.querySelector(`.plat[data-p="${p}"]`);
+    if(plat) plat.style.display=chip.classList.contains("on")?"":"none";
+  });
+});
+
+/* ── Expand extras ── */
+document.querySelectorAll(".xbtn").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    const xtra=btn.previousElementSibling;
+    const open=xtra.classList.toggle("open");
+    btn.classList.toggle("open",open);
+    btn.textContent=open?"− Vis mindre":"+ Vis mer";
+  });
+});
+
+/* ── Export tekst (active platforms only) ── */
 document.getElementById("exportBtn").addEventListener("click",()=>{
-  const brand = document.getElementById("brandName").value.trim() || "BrandName";
-  const v = k => {
-    const el = document.querySelector(`[data-input="${k}"]`);
-    return el ? el.value.trim() : "";
-  };
-  const tagline = (document.querySelector("[data-tagline-input]") || {}).value?.trim() || "";
-  const url = (document.querySelector("[data-url-input]") || {}).value?.trim() || "";
-  const sep = "────────────────────────────────";
-  const line = (label, val) => val ? `${label}: ${val}\n` : "";
+  const brand=document.getElementById("brandName").value.trim()||"BrandName";
+  const v=k=>{const el=document.querySelector(`[data-input="${k}"]`);return el?el.value.trim():"";};
+  const tagline=(document.querySelector("[data-tagline-input]")||{}).value?.trim()||"";
+  const url=(document.querySelector("[data-url-input]")||{}).value?.trim()||"";
+  const sep="────────────────────────────────";
+  const line=(label,val)=>val?`${label}: ${val}\n`:"";
+  const isOn=p=>!!document.querySelector(`.ptg-chip.on[data-plat="${p}"]`);
 
-  let out = "";
+  let out="";let first=true;
+  const sec=(title,body)=>{if(!body.trim())return;if(!first)out+="\n"+sep+"\n\n";first=false;out+=title+"\n"+body;};
 
-  out += "Tik Tok\n";
-  out += line("Brand name", brand);
-  out += line("Description", v("tt"));
-  out += "\n" + sep + "\n\n";
+  if(isOn("tt")){let b="";b+=line("Brand name",brand);b+=line("Description",v("tt"));sec("Tik Tok",b);}
+  if(isOn("ig")){let b="";b+=line("Brand name",brand);b+=line("Caption",v("ig"));sec("Instagram",b);}
+  if(isOn("sn")){let b="";b+=line("Brand name",brand);b+=line("Tagline",tagline);b+=line("Headline",v("sn"));if(url)b+=line("URL",url);sec("Snap",b);}
+  if(isOn("mf")){let b="";b+=line("Brand name",brand);b+=line("Primary text",v("mf-txt"));b+=line("Headline",v("mf-hl"));b+=line("Description",v("mf-ds"));sec("Meta Feed",b);}
+  if(isOn("ms")){let b="";b+=line("Brand name",brand);b+=line("Primary text",v("ms"));b+=line("Headline",v("ms-hl"));sec("Meta Story",b);}
 
-  out += "Instagram\n";
-  out += line("Brand name", brand);
-  out += line("Caption", v("ig"));
-  out += "\n" + sep + "\n\n";
-
-  out += "Snap\n";
-  out += line("Brand name", brand);
-  out += line("Tagline", tagline);
-  out += line("Headline", v("sn"));
-  if (url) out += line("URL", url);
-  out += "\n" + sep + "\n\n";
-
-  out += "Meta Feed\n";
-  out += line("Brand name", brand);
-  out += line("Primary text", v("mf-txt"));
-  out += line("Headline", v("mf-hl"));
-  out += line("Description", v("mf-ds"));
-  out += "\n" + sep + "\n\n";
-
-  out += "Meta Story\n";
-  out += line("Brand name", brand);
-  out += line("Primary text", v("ms"));
-  out += line("Headline", v("ms-hl"));
-
-  const blob = new Blob([out], {type:"text/plain;charset=utf-8"});
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
-  a.download = `ad-tekster-${brand.toLowerCase().replace(/\s+/g,"-")}.txt`;
+  const blob=new Blob([out],{type:"text/plain;charset=utf-8"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download=`ad-tekster-${brand.toLowerCase().replace(/\s+/g,"-")}.txt`;
   a.click();
   URL.revokeObjectURL(a.href);
 });
